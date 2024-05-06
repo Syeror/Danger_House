@@ -10,11 +10,12 @@ public class enemyAl : MonoBehaviour
     public float ViewAngle;
     private NavMeshAgent _navMeshAgent;
     public List<Transform> PatrolPoint;
-    // public PlayerController Player;
+    public PlayerMovement Player;
     private bool _isPlayerNoticed;
     public float damage = 15;
     private PlayerHealth _PlayerHealth;
     public float ViewDistance = 5;
+    public float timer = 0;
     void Start()
     {
         inComponentLink();
@@ -24,14 +25,14 @@ public class enemyAl : MonoBehaviour
 
     private void inComponentLink()
     {
-       // _PlayerHealth = Player.GetComponent<PlayerHealth>();
+       _PlayerHealth = Player.GetComponent<PlayerHealth>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
     }
     // Update is called once per frame
     void Update()
     {
-
+        timer += Time.deltaTime;
         IsplayerNoticedUpdate();
         pursuitUpdate();
         PickNewPatrolPoint();
@@ -47,27 +48,27 @@ public class enemyAl : MonoBehaviour
     {
         if (!_isPlayerNoticed)
         {
-            Debug.Log(PatrolPoint);
+          //  Debug.Log(PatrolPoint);
             _navMeshAgent.destination = PatrolPoint[Random.Range(0, PatrolPoint.Count)].position;
         }
     }
     private void IsplayerNoticedUpdate()
     {
-        //var Direction = Player.transform.position - transform.position;
+        var Direction = Player.transform.position - transform.position;
 
-        //Debug.DrawRay(transform.position, Direction);
-        //if (Vector3.Distance(transform.position, Player.transform.position) <= ViewDistance)
+     //   Debug.DrawRay(transform.position, Direction);
+         if (Vector3.Distance(transform.position, Player.transform.position) <= ViewDistance)
         {
-            //if (Vector3.Angle(transform.forward, Direction) < ViewAngle)
+            if (Vector3.Angle(transform.forward, Direction) < ViewAngle)
             {
 
                 RaycastHit hit;
                 _isPlayerNoticed = false;
 
 
-                //if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 999999))
+                if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 999999))
                 {
-                 //   if (hit.collider.gameObject == Player.gameObject)
+                    if (hit.collider.gameObject == Player.gameObject)
                     {
                         _isPlayerNoticed = true;
 
@@ -75,7 +76,7 @@ public class enemyAl : MonoBehaviour
 
                 }
             }
-            //else
+            else
             {
                 PatrolUpdate();
             }
@@ -87,7 +88,7 @@ public class enemyAl : MonoBehaviour
     {
         if (_isPlayerNoticed)
         {
-          //  _navMeshAgent.destination = Player.transform.position;
+            _navMeshAgent.destination = Player.transform.position;
 
         }
 
@@ -107,9 +108,11 @@ public class enemyAl : MonoBehaviour
 
             if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
-              //  _PlayerHealth.DealDamage(damage * Time.deltaTime);
-
-
+                if (timer >= 5)
+                {
+                    _PlayerHealth.DealDamage(damage);
+                    timer = 0;
+                }
             }
         }
     }
