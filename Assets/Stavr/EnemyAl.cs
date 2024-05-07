@@ -15,7 +15,8 @@ public class enemyAl : MonoBehaviour
     public float damage = 15;
     private PlayerHealth _PlayerHealth;
     public float ViewDistance = 5;
-    public float timer = 0;
+    private float timer = 0;
+    public float reloader = 0;
     void Start()
     {
         inComponentLink();
@@ -66,7 +67,7 @@ public class enemyAl : MonoBehaviour
                 _isPlayerNoticed = false;
 
 
-                if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 999999))
+                if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 999))
                 {
                     if (hit.collider.gameObject == Player.gameObject)
                     {
@@ -108,7 +109,7 @@ public class enemyAl : MonoBehaviour
 
             if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
-                if (timer >= 5)
+                if (timer >= reloader)
                 {
                     _PlayerHealth.DealDamage(damage);
                     timer = 0;
