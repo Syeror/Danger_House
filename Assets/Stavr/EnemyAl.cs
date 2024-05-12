@@ -17,6 +17,8 @@ public class enemyAl : MonoBehaviour
     public float ViewDistance = 5;
     private float timer = 0;
     public float reloader = 0;
+    public Animator animator;
+    public Collider ColliderMonster;
     void Start()
     {
         inComponentLink();
@@ -33,10 +35,10 @@ public class enemyAl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      // PickNewPatrolPoint();
         timer += Time.deltaTime;
         IsplayerNoticedUpdate();
         pursuitUpdate();
-        PickNewPatrolPoint();
         AttackUpdate();
 
 
@@ -51,6 +53,8 @@ public class enemyAl : MonoBehaviour
         {
           //  Debug.Log(PatrolPoint);
             _navMeshAgent.destination = PatrolPoint[Random.Range(0, PatrolPoint.Count)].position;
+            animator.SetTrigger("Walk_Cycle_1");
+           // animator.SetTrigger("Intimidate_1");
         }
     }
     private void IsplayerNoticedUpdate()
@@ -65,23 +69,31 @@ public class enemyAl : MonoBehaviour
 
                 RaycastHit hit;
                 _isPlayerNoticed = false;
+                //animator.SetTrigger("Take_Damage_3");
 
 
-                if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 999))
+                if (Physics.Raycast(transform.position + Vector3.up, Direction, out hit, 9999))
                 {
                     if (hit.collider.gameObject == Player.gameObject)
                     {
                         _isPlayerNoticed = true;
+                //animator.SetTrigger("Sneak_Cycle_1");
+                        animator.SetTrigger("Walk_Cycle_1");
+                        animator.SetTrigger("Walk_Cycle_3");
+
+
 
                     }
 
                 }
             }
+            // Код проверки угла и рейкаста остается тем же
+        }
             else
             {
                 PatrolUpdate();
-            }
-            // Код проверки угла и рейкаста остается тем же
+            //animator.SetTrigger("Intimidate_3");
+            animator.SetTrigger("Walk_Cycle_2");
         }
 
     }
@@ -90,7 +102,7 @@ public class enemyAl : MonoBehaviour
         if (_isPlayerNoticed)
         {
             _navMeshAgent.destination = Player.transform.position;
-
+            animator.SetTrigger("Walk_Cycle_2");
         }
 
     }
@@ -99,6 +111,8 @@ public class enemyAl : MonoBehaviour
         if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
         {
             PickNewPatrolPoint();
+           // animator.SetTrigger("Intimidate_1");
+            animator.SetTrigger("Walk_Cycle_1");
         }
     }
 
@@ -107,13 +121,16 @@ public class enemyAl : MonoBehaviour
         if (_isPlayerNoticed)
         {
 
-            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance || ColliderMonster.isTrigger)
             {
+                animator.SetTrigger("Walk_Cycle_1");
                 if (timer >= reloader)
                 {
                     _PlayerHealth.DealDamage(damage);
+                    animator.SetTrigger("Attack_1");
                     timer = 0;
                 }
+                animator.SetTrigger("Walk_Cycle_2");
             }
         }
     }
