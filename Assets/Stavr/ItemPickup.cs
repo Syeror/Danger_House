@@ -43,7 +43,7 @@ public class ItemPickup : MonoBehaviour
 
         if (Keys == 4)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
         // Создаем новый объект префаба в позиции игрока
         //Instantiate(itemPrefab, transform.position, transform.rotation);
