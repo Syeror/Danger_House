@@ -1237,6 +1237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2130052252}
   - component: {fileID: 2130052251}
+  - component: {fileID: 2130052253}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -1256,6 +1257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9a2938332901045a7209419651639d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseCanvas: {fileID: 0}
 --- !u!4 &2130052252
 Transform:
   m_ObjectHideFlags: 0
@@ -1271,6 +1273,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2130052253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130052250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593519e127cbe2a43ab8a50d3b534462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

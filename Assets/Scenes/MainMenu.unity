@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410564905}
   - component: {fileID: 410564904}
+  - component: {fileID: 410564906}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9a2938332901045a7209419651639d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseCanvas: {fileID: 0}
 --- !u!4 &410564905
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +169,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410564906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410564903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593519e127cbe2a43ab8a50d3b534462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &701187950
 GameObject:
   m_ObjectHideFlags: 0
