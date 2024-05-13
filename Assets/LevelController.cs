@@ -5,33 +5,40 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
+    // Flag to indicate if the game is paused
+    private bool isPaused = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TogglePauseGame();
+        }
 
     }
     public void ExitToGame()
     {
-      //Dopisat
+        Application.Quit();
+
     }
     //public void LoadNextLevel()
-   // {
-      // SceneManager.LoadScene(1);
-      //  var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-      // var NewSceneIndex = currentSceneIndex + 1;
-      //  PlayerPrefs.SetInt("CurrentSceneIndex", NewSceneIndex);
-      // SceneManager.LoadScene(currentSceneIndex + 1);
+    // {
+    // SceneManager.LoadScene(1);
+    //  var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    // var NewSceneIndex = currentSceneIndex + 1;
+    //  PlayerPrefs.SetInt("CurrentSceneIndex", NewSceneIndex);
+    // SceneManager.LoadScene(currentSceneIndex + 1);
 
     //}
     public void BackToMainMenu()
     {
-       SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
     public void NewGame()
     {
@@ -41,6 +48,27 @@ public class LevelController : MonoBehaviour
     public void LoadCurrentLevel()
     {
         var CurrentLevel = PlayerPrefs.GetInt("CurrentSceneIndex");
-       SceneManager.LoadScene(CurrentLevel);
+        SceneManager.LoadScene(CurrentLevel);
+    }
+    private void TogglePauseGame()
+    {
+        isPaused = !isPaused; // Flip the pause flag
+
+        // Implement pausing logic here:
+        if (isPaused)
+        {
+            // Pause the game (e.g., set Time.timeScale to 0)
+            Time.timeScale = 0f;
+
+            // Optionally, display a pause menu or visual indicator
+        }
+        else
+        {
+            // Resume the game (e.g., set Time.timeScale back to 1)
+            Time.timeScale = 1f;
+
+            // Optionally, hide the pause menu or visual indicator
+        }
     }
 }
+
