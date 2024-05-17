@@ -19,6 +19,10 @@ public class enemyAl : MonoBehaviour
     public float reloader = 0;
     public Animator animator;
     public Collider ColliderMonster;
+   
+    public AudioSource RoarSound;
+    public AudioSource pursuitSound;
+    public AudioSource AttackSound;
     void Start()
     {
         inComponentLink();
@@ -80,6 +84,7 @@ public class enemyAl : MonoBehaviour
                 //animator.SetTrigger("Sneak_Cycle_1");
                         animator.SetTrigger("Walk_Cycle_1");
                         animator.SetTrigger("Walk_Cycle_3");
+                        pursuitSound.Play();
 
 
 
@@ -94,6 +99,8 @@ public class enemyAl : MonoBehaviour
                 PatrolUpdate();
             //animator.SetTrigger("Intimidate_3");
             animator.SetTrigger("Walk_Cycle_2");
+            RoarSound.Play();
+
         }
 
     }
@@ -113,6 +120,8 @@ public class enemyAl : MonoBehaviour
             PickNewPatrolPoint();
            // animator.SetTrigger("Intimidate_1");
             animator.SetTrigger("Walk_Cycle_1");
+            
+          
         }
     }
 
@@ -128,9 +137,11 @@ public class enemyAl : MonoBehaviour
                 {
                     _PlayerHealth.DealDamage(damage);
                     animator.SetTrigger("Attack_1");
+                      AttackSound.Play();
                     timer = 0;
                 }
                 animator.SetTrigger("Walk_Cycle_2");
+               
             }
         }
     }
